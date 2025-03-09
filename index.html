@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIP Assessment Helper</title>
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #f8fafc;
+            --accent-color: #ef4444;
+            --text-color: #334155;
+            --light-gray: #f1f5f9;
+            --border-color: #cbd5e1;
+            --success-color: #22c55e;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .introduction {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .introduction h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-btn {
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+            min-width: 24px;
+        }
+        
+        .key-points {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .key-points h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .key-points ul {
+            margin-left: 1.5rem;
+        }
+        
+        .key-points li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .examples {
+            margin-top: 1rem;
+        }
+        
+        .example {
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(239, 68, 68, 0.05);
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .checklist li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .checklist input[type="checkbox"] {
+            margin-right: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        
+        .checklist label {
+            flex: 1;
+        }
+        
+        .note {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .note h3 {
+            color: #b45309;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip {
+            background-color: #ecfdf5;
+            border-left: 4px solid var(--success-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .tip h3 {
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-container {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .highlight {
+            background-color: yellow;
+            padding: 0 2px;
+            border-radius: 2px;
+            color: black;
+        }
+        
+        .expand-all {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .warning-text {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .categories {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">PIP Assessment Helper</div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="introduction">
+            <h2>Your PIP Telephone Assessment Guide</h2>
+            <p>This tool will help you navigate your PIP telephone assessment. Use the sections below to quickly access key information about your conditions and how they affect your daily life.</p>
+            
+            <div class="tip">
+                <h3>Important Reminders</h3>
+                <ul>
+                    <li>Focus on describing your <strong>worst days</strong>, not your average or best days</li>
+                    <li>Be specific about timeframes (30 seconds to find toilets, etc.)</li>
+                    <li>Describe the <strong>unpredictability</strong> of your condition</li>
+                    <li>Explain both physical and psychological impacts</li>
+                    <li>Don't downplay or minimise your symptoms</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="Search for key topics (e.g., pain, toilet, mobility)..." id="search-input">
+        </div>
+        
+        <button class="expand-all" id="expand-all-btn">Collapse All Sections</button>
+        
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="medical">Medical History</button>
+            <button class="category-btn" data-category="daily">Daily Living</button>
+            <button class="category-btn" data-category="mobility">Mobility</button>
+            <button class="category-btn" data-category="mental">Mental Health</button>
+        </div>
+        
+        <!-- Medical History Section -->
+        <div class="section" data-category="medical">
+            <h2>
+                <div class="section-title">
+                    <span>Medical History & Conditions</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points to Mention</h3>
+                    <ul>
+                        <li>HIV diagnosis in November 2022</li>
+                        <li>Emergency operation for telescopic bowel in January 2023</li>
+                        <li>Ulcerative Colitis diagnosis in February 2023</li>
+                        <li>Hospitalisation for severe flare in June 2023</li>
+                        <li>Sigmoidoscopy in November 2023</li>
+                        <li>CMV Ulcerative Colitis confirmed (common effect of HIV)</li>
+                        <li>Currently receiving Infliximab infusions (second infusion recently completed)</li>
+                        <li>Next two infusions to be administered by nurse at home</li>
+                        <li>Will transition to self-injections for life afterwards</li>
+                        <li>Previous high-dose prednisolone treatment which caused symptoms to flare when reduced</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <h3>Important Context</h3>
+                    <p>Emphasise that HIV and Ulcerative Colitis are both chronic, lifelong conditions. The CMV Ulcerative Colitis is a direct result of your HIV status, making your case particularly complex to manage.</p>
+                </div>
+                
+                <div class="checklist">
+                    <h3>Assessment Checklist</h3>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="medical-check-1">
+                            <label for="medical-check-1">Explained the timeline of diagnoses</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="medical-check-2">
+                            <label for="medical-check-2">Mentioned all hospitalisations</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="medical-check-3">
+                            <label for="medical-check-3">Described current treatment plan</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="medical-check-4">
+                            <label for="medical-check-4">Explained the chronic, lifelong nature of both conditions</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="medical-check-5">
+                            <label for="medical-check-5">Clarified that CMV Colitis is connected to HIV status</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toilet Needs Section -->
+        <div class="section" data-category="daily">
+            <h2>
+                <div class="section-title">
+                    <span>Toilet Needs & Urgency</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points to Mention</h3>
+                    <ul>
+                        <li>Extreme urgency - need toilet within 30 seconds when urgency hits</li>
+                        <li>Multiple embarrassing accidents in public when unable to find facilities in time</li>
+                        <li>Internal bleeding during flares</li>
+                        <li>Frequency - need to use toilet 10+ times daily during flares</li>
+                        <li>Unpredictable - cannot predict when urgency will occur</li>
+                        <li>May need to interrupt activities (eating, bathing, dressing) for urgent toilet needs</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>Specific Examples</h3>
+                    <div class="example">
+                        <h4>Public Accident Example</h4>
+                        <p>Describe a specific instance when you had an accident in public due to not finding facilities in time. Include details about the location, the distress it caused, and the impact it had on your confidence afterwards.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Work Example</h4>
+                        <p>Explain how toilet urgency affects your work day - having to suddenly leave meetings or tasks, concerns about explaining frequent toilet visits to colleagues, and the stress this causes.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Home Example</h4>
+                        <p>Describe how toilet urgency disrupts home activities - for example, having to rush from the shower, interrupting meal preparation, or waking multiple times at night.</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h3>PIP Assessment Relevance</h3>
+                    <p>This directly relates to the "Using the toilet and managing incontinence" activity in the PIP assessment. Your 30-second urgency window and accidents are <span class="warning-text">crucial evidence</span> for limitations in this area.</p>
+                </div>
+                
+                <div class="tip">
+                    <h3>Communication Tip</h3>
+                    <p>Be direct and specific about toilet accidents - while this may feel embarrassing, these details are essential for conveying the severity of your condition. Use precise timeframes (e.g., "within 30 seconds") and frequencies.</p>
+                </div>
+                
+                <div class="checklist">
+                    <h3>Assessment Checklist</h3>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="toilet-check-1">
+                            <label for="toilet-check-1">Specified the 30-second urgency window</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="toilet-check-2">
+                            <label for="toilet-check-2">Described public accidents in detail</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="toilet-check-3">
+                            <label for="toilet-check-3">Explained frequency (10+ times daily during flares)</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="toilet-check-4">
+                            <label for="toilet-check-4">Mentioned internal bleeding</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="toilet-check-5">
+                            <label for="toilet-check-5">Highlighted the unpredictability of symptoms</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pain and Fatigue Section -->
+        <div class="section" data-category="daily">
+            <h2>
+                <div class="section-title">
+                    <span>Pain & Fatigue</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points to Mention</h3>
+                    <ul>
+                        <li>Excruciating abdominal pain during flares</li>
+                        <li>Pain can be debilitating - unable to stand straight</li>
+                        <li>Extreme fatigue/tiredness that affects daily activities</li>
+                        <li>Sleep disruption due to pain and toilet urgency</li>
+                        <li>Pain and fatigue affect ability to concentrate</li>
+                        <li>Activities often need to be cut short or avoided due to pain</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>Specific Examples</h3>
+                    <div class="example">
+                        <h4>Pain Severity Example</h4>
+                        <p>Describe a specific instance when pain was at its worst - what were you doing, how did it affect you, what did you have to stop doing, how long did it last.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Fatigue Impact Example</h4>
+                        <p>Explain how fatigue affects your daily functioning - e.g., needing to rest after basic activities, inability to complete normal tasks, or having to choose between essential activities due to limited energy.</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h3>PIP Assessment Relevance</h3>
+                    <p>Pain and fatigue affect multiple PIP activities including preparing food, washing and bathing, and mobility. Be sure to explain how these symptoms impact each area of functioning.</p>
+                </div>
+                
+                <div class="checklist">
+                    <h3>Assessment Checklist</h3>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="pain-check-1">
+                            <label for="pain-check-1">Described pain intensity (use terms like "excruciating")</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="pain-check-2">
+                            <label for="pain-check-2">Explained how pain limits physical activities</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="pain-check-3">
+                            <label for="pain-check-3">Detailed how fatigue affects daily functioning</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="pain-check-4">
+                            <label for="pain-check-4">Mentioned sleep disruption</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="pain-check-5">
+                            <label for="pain-check-5">Explained concentration difficulties</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobility and Travel Section -->
+        <div class="section" data-category="mobility">
+            <h2>
+                <div class="section-title">
+                    <span>Mobility & Travel Limitations</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points to Mention</h3>
+                    <ul>
+                        <li>Very nervous to travel anywhere, especially alone</li>
+                        <li>Daily 45-minute commute causes severe stress and anxiety</li>
+                        <li>Had to cancel Florida holiday due to inability to travel</li>
+                        <li>Need to plan all journeys around toilet access</li>
+                        <li>Cannot travel far from home without significant planning</li>
+                        <li>Need to stay within immediate reach of toilets</li>
+                        <li>Professional medical advice not to travel (reference the letter)</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>Specific Examples</h3>
+                    <div class="example">
+                        <h4>Cancelled Holiday Example</h4>
+                        <p>Provide details about the Florida holiday cancellation - the financial loss, emotional impact, and specific concerns that led to the cancellation.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Work Commute Example</h4>
+                        <p>Describe the stress of your daily 45-minute commute - anxiety about toilet access, planning around public toilets, any incidents that have occurred during travel.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Local Travel Limitations</h4>
+                        <p>Explain how your condition limits even local travel - avoiding certain routes without toilets, not using public transport, or needing someone with you for support.</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h3>PIP Assessment Relevance</h3>
+                    <p>This relates to both "Planning and Following Journeys" and "Moving Around" in the PIP mobility component. The anxiety and physical limitations affecting travel are <span class="warning-text">strong evidence</span> for mobility support.</p>
+                </div>
+                
+                <div class="tip">
+                    <h3>Supporting Evidence</h3>
+                    <p>Mention the medical advice against travel in the letter from your healthcare provider - this is official documentation supporting your mobility limitations.</p>
+                </div>
+                
+                <div class="checklist">
+                    <h3>Assessment Checklist</h3>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="mobility-check-1">
+                            <label for="mobility-check-1">Explained anxiety about traveling</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mobility-check-2">
+                            <label for="mobility-check-2">Described cancelled Florida holiday</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mobility-check-3">
+                            <label for="mobility-check-3">Detailed stress from daily commute</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mobility-check-4">
+                            <label for="mobility-check-4">Mentioned planning all journeys around toilet access</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mobility-check-5">
+                            <label for="mobility-check-5">Referenced medical advice against travel</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mental Health Impact Section -->
+        <div class="section" data-category="mental">
+            <h2>
+                <div class="section-title">
+                    <span>Mental Health & Psychological Impact</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points to Mention</h3>
+                    <ul>
+                        <li>Anxiety about being away from toilet facilities</li>
+                        <li>Stress and anxiety worsen physical symptoms (creating a cycle)</li>
+                        <li>Embarrassment from accidents affects confidence and self-esteem</li>
+                        <li>Social isolation due to fear of symptoms in public</li>
+                        <li>Constant worry about having accidents</li>
+                        <li>Mental burden of planning all activities around toilet access</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>Specific Examples</h3>
+                    <div class="example">
+                        <h4>Social Impact Example</h4>
+                        <p>Describe a specific social event you avoided or left early due to anxiety about symptoms - how this has affected relationships and led to isolation.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Emotional Impact Example</h4>
+                        <p>Explain the emotional toll of living with unpredictable and embarrassing symptoms - feelings of shame, loss of dignity, or helplessness.</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h3>PIP Assessment Relevance</h3>
+                    <p>This relates to "Mixing with other people" in the PIP assessment. Anxiety and stress that prevent social interaction or require support in social settings are important considerations.</p>
+                </div>
+                
+                <div class="tip">
+                    <h3>Communication Tip</h3>
+                    <p>Don't downplay the psychological impact - mental health effects are valid considerations for PIP and can be as limiting as physical symptoms.</p>
+                </div>
+                
+                <div class="checklist">
+                    <h3>Assessment Checklist</h3>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="mental-check-1">
+                            <label for="mental-check-1">Described anxiety about being away from toilets</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mental-check-2">
+                            <label for="mental-check-2">Explained how stress worsens physical symptoms</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mental-check-3">
+                            <label for="mental-check-3">Detailed the embarrassment from accidents</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mental-check-4">
+                            <label for="mental-check-4">Discussed social isolation</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mental-check-5">
+                            <label for="mental-check-5">Explained the mental burden of constant planning</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Work Impact Section -->
+        <div class="section" data-category="daily">
+            <h2>
+                <div class="section-title">
+                    <span>Impact on Work</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points to Mention</h3>
+                    <ul>
+                        <li>45-minute commute to work is a daily source of stress</li>
+                        <li>Need for frequent and urgent toilet breaks disrupts work</li>
+                        <li>Fatigue affects concentration and productivity</li>
+                        <li>Anxiety about having symptoms at work</li>
+                        <li>Embarrassment explaining frequent toilet visits to colleagues</li>
+                        <li>Pain can make sitting for long periods difficult</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>Specific Examples</h3>
+                    <div class="example">
+                        <h4>Work Disruption Example</h4>
+                        <p>Describe specific instances when symptoms have disrupted your work - having to leave meetings abruptly, difficulty completing tasks, or having to work from home due to symptoms.</p>
+                    </div>
+                    <div class="example">
+                        <h4>Commute Stress Example</h4>
+                        <p>Explain the specific challenges of your commute - planning around public toilets, anxiety on public transport, or specific incidents during travel to work.</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <h3>PIP Assessment Relevance</h3>
+                    <p>While PIP doesn't specifically assess work capability, these examples demonstrate how your condition affects daily activities and mobility that would be relevant to multiple PIP criteria.</p>
+                </div>
+                
+                <div class="checklist">
+                    <h3>Assessment Checklist</h3>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="work-check-1">
+                            <label for="work-check-1">Detailed commute challenges</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="work-check-2">
+                            <label for="work-check-2">Explained disruption from toilet urgency</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="work-check-3">
+                            <label for="work-check-3">Described how fatigue affects work performance</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="work-check-4">
+                            <label for="work-check-4">Mentioned work accommodations needed</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="work-check-5">
+                            <label for="work-check-5">Explained social challenges with colleagues</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Living Activities Section -->
+        <div class="section" data-category="daily">
+            <h2>
+                <div class="section-title">
+                    <span>Impact on Daily Living Activities</span>
+                </div>
+                <button class="toggle-btn">−</button>
+            </h2>
+            <div class="section-content">
+                <div class="key-points">
+                    <h3>Key Points by PIP Activity Category</h3>
+                    <ul>
+                        <li><strong>Preparing Food:</strong> May need to interrupt food preparation urgently for toilet; fatigue can make preparation difficult; pain can make standing to prepare food challenging</li>
+                        <li><strong>Eating and Drinking:</strong> Certain foods trigger symptoms; may avoid eating when travelling or away from home toilets; medications may affect appetite</li>
+                        <li><strong>Managing Treatments:</strong> Multiple medications to manage; starting self-injections will require monitoring; need to constantly monitor symptoms for flares</li>
+                        <li><strong>Washing an
